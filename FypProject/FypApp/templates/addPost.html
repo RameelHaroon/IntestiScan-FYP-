@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Post</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+  </head>
+  <body>
+    <div class="container-2">
+      <form action="{% url 'addPost' id=id %}" method="POST">
+        {% csrf_token %}
+        <div class="ABC">
+          <div class="InputField">
+            <label for="{{ form.title.id_for_label }}" class="label-class"
+              >{{ form.title.label_tag }}</label
+            >
+            {{ form.title }} {% if form.errors.title %}
+            <span class="error">{{ form.errors.title }}</span>
+            {% endif %}
+          </div>
+          <div class="InputField">
+            <label for="{{ form.content.id_for_label }}" class="label-class"
+              >{{ form.content.label_tag }}</label
+            >
+            {{ form.content }} {% if form.errors.content %}
+            <div class="error-box">
+              <span class="error">{{ form.errors.content }}</span>
+            </div>
+            {% endif %}
+          </div>
+          <div class="update-btn">
+            <button class="main-btn" type="submit">SUBMIT FORM</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

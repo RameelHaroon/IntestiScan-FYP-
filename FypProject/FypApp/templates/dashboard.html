@@ -1,0 +1,58 @@
+{% if request.session.user_loggedin %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-user">
+        <div class="dropdown">
+          <button class="dropbtn">{{ user.name }}</button>
+          <div class="dropdown-content">
+            <a href=" {% url 'Logout' %}">Logout</a>
+            <a href=" # ">Help</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="add-post">
+      <a href="{% url 'image_upload' user.id %}"
+        ><button class="main-btn add-post">Upload Image</button></a
+      >
+    </div>
+    <h2 class="Dashboaord-Records-h2">Records</h2>
+    <div class="Dashboard-records">
+      {% if images %}
+
+      <ul>
+        {% for image in images %}
+        <li>
+          <img src="{{ image.image.url }}" alt="{{ image.title }}" />
+          <div class="text-content">
+            <h3>{{ image.title }}</h3>
+            <p>Uploaded on: {{ image.date }}</p>
+            <p>Classsified as: {{ image.type }}</p>
+          </div>
+          <div class="buttons">
+            <a href="{% url 'delete_image' image.id %}" class="main-btn"
+              >DETAILS</a
+            >
+            <a href="{% url 'delete_image' image.id %}" class="main-btn"
+              >DELETE</a
+            >
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No record found.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>
+{% endif %}
